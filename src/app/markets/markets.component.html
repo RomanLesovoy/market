@@ -1,0 +1,12 @@
+
+<section>
+  <div *ngIf="loading else showData">
+    loading data
+  </div>
+  <ng-template #showData>
+      <h4 class="center">Instruments</h4>  
+      <div *ngFor="let instrument of instruments; trackBy: listTrackBy">
+          <p>{{ instrument.name }}</p>
+      </div>
+  </ng-template>
+</section>

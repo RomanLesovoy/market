@@ -1,0 +1,28 @@
+<header>
+  <!-- explain - assets path we can use by default but otherwise in component we need require() -->
+  <img [src]="'assets/shift-icon.png'" alt="shift-logo">
+
+  <a routerLink="/markets">
+    <button mat-raised-button [color]="isActive('/markets') ? 'primary' : 'secondary'">
+      Markets
+    </button>
+  </a>
+
+  <a routerLink="/history">
+    <button mat-raised-button [color]="isActive('/history') ? 'primary' : 'secondary'">
+      History
+    </button>
+  </a>
+
+  <span class="example-spacer"></span>
+
+  <ng-container *ngIf="!this.cognito.isAuthenticated else showUser">
+    <button mat-raised-button color="primary" (click)="this.cognito.onLogin()">Login</button>
+  </ng-container>
+
+  <ng-template #showUser>
+    <button mat-mini-fab color="primary" class="userIcon" [textContent]="this.cognito?.user?.attributes?.given_name[0] || ''">
+    </button>
+    <mat-icon color="primary" (click)="this.cognito.onLogout()">power_settings_new</mat-icon>
+  </ng-template>
+</header>

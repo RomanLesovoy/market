@@ -1,0 +1,23 @@
+header {
+  display: flex;
+  padding: 20px;
+  background-color: #16192A;
+  align-items: center;
+
+  img {
+    margin-right: 40px;
+  }
+
+  button {
+    margin-left: 10px;
+  }
+
+  a:nth-child(1) button {
+    margin-left: 0;
+  }
+
+  .mat-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
