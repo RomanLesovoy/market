@@ -8,12 +8,15 @@ const routes: Routes = [
   {
     path: 'markets',
     component: MarketsComponent,
-    // loadChildren: () => import('./markets/markets.module').then(m => m.MarketsModule), // explain: if we need lazy - it works only with modules
   },
   { 
     path: 'history',
     component: HistoryComponent,
     canActivate: [AuthGuardService] 
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),  // explain: if we need lazy - it works only with modules
   },
   { path: '**', redirectTo: '/markets' } // 404
 ];

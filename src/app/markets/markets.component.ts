@@ -12,7 +12,7 @@ export class MarketsComponent {
   public instruments: Array<any>; // todo
 
   constructor(private service: MarketsService) {
-    this.loading = false;
+    this.loading = true;
     this.instruments = [];
   }
 

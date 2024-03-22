@@ -15,6 +15,7 @@ import { MarketsComponent } from './markets/markets.component';
 import { HistoryComponent } from './history/history.component';
 import { HeaderComponent } from './header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AppRoutingModule,
     ApolloModule,
     HeaderComponent,
+    MatDialogModule,
   ],
   providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
