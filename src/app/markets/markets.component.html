@@ -8,19 +8,24 @@
           <p>{{ instrument.name }}</p>
       </div> -->
 
-      <section *ngFor="let instrumentsBlock of instrumentsBlocks" class="markets-list">
-        <section *ngFor="let instrument of instrumentsBlock; trackBy: listTrackBy">
-          <p class="instrument-row">
-            <span>{{ instrument.name }}</span>
-            <span [class]="(instrument.price.price_24h_change > 0 ? 'positive' : 'negative') + ' price'">
-              {{ instrument.price.ask }}
-            </span>
-            <span [class]="instrument.price.price_24h_change > 0 ? 'positive' : 'negative'">
-              {{ instrument.price.price_24h_change }}
-            </span>
+      <section *ngFor="let instrument of instrumentsBlocks.flat()" class="markets-list">
+        <!-- <section *ngFor="let instrument of instrumentsBlock; trackBy: listTrackBy"> -->
+          <section class="instrument-row">
+            <div class="row-1">
+              <span class="instrument-name">{{ instrument.name }}</span>
+        
+              <button mat-raised-button color="accent" class="swap-button">Swap</button>
+            </div>
+            <div class="row-2">
+              <span [class]="(instrument.price.price_24h_change > 0 ? 'positive' : 'negative') + ' price'">
+                {{ instrument.price.ask }}
+              </span>
 
-            <button mat-raised-button color="primary" class="swap-button">Swap</button>
-          </p>
+              <span [class]="(instrument.price.price_24h_change > 0 ? 'positive' : 'negative') + ' change'">
+                {{ instrument.price.price_24h_change }} %
+              </span>
+            </div>
+          <!-- </section> -->
         </section>
       </section> 
   </ng-template>
