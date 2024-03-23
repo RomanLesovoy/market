@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DepositComponent } from './deposit/deposit.component';
-// import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 
 const routes: Routes = [
@@ -13,18 +12,14 @@ const routes: Routes = [
     path: 'withdraw',
     component: WithdrawComponent,
   },
-  // {
-  //   path: '',
-  //   component: PaymentModalComponent
-  // }
+  {
+    path: '**',
+    redirectTo: 'deposit'
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PaymentRoutingModule {
-  constructor() {
-    console.log('00')
-  }
-}
+export class PaymentRoutingModule {}

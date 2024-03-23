@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {MatButtonModule} from '@angular/material/button';
-import {FormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-
 import { PaymentRoutingModule } from './payment-routing.module';
 import { DepositComponent } from './deposit/deposit.component';
+import { DepositContentComponent } from './deposit/deposit-content/deposit-content.component';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { PaymentDialogComponent } from './payment-modal/payment-modal.component';
+import { PaymentComponent } from './payment.component';
+import { ShareLibModulesModule } from '../shared/share-lib-modules/share-lib-modules.module';
+import { WithdrawContentComponent } from './withdraw/withdraw-content/withdraw-content.component';
 
 
 @NgModule({
@@ -18,19 +16,14 @@ import { PaymentDialogComponent } from './payment-modal/payment-modal.component'
     DepositComponent,
     WithdrawComponent,
     PaymentDialogComponent,
+    PaymentComponent,
+    DepositContentComponent,
+    WithdrawContentComponent, // explain: ng generate component payment/withdraw/WithdrawContent - creates a folder and puts it to closest module
   ],
   imports: [
     CommonModule,
     PaymentRoutingModule,
-    // MatFormFieldModule,
-    // MatInputModule,
-    // FormsModule,
-    // MatButtonModule,
-    MatDialogModule,
+    ShareLibModulesModule, // explain: we can use modules to import\export
   ],
 })
-export class PaymentModule {
-  constructor() {
-    console.log('000')
-  }
-}
+export class PaymentModule {}

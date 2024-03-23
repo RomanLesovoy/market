@@ -1,12 +1,27 @@
 
-<section>
+<section class="markets">
   <div *ngIf="loading else showData">
     loading data
   </div>
   <ng-template #showData>
-      <h4 class="center">Instruments</h4>  
-      <div *ngFor="let instrument of instruments; trackBy: listTrackBy">
+      <!-- <div *ngFor="let instrument of instruments; trackBy: listTrackBy" class="markets-list">
           <p>{{ instrument.name }}</p>
-      </div>
+      </div> -->
+
+      <section *ngFor="let instrumentsBlock of instrumentsBlocks" class="markets-list">
+        <section *ngFor="let instrument of instrumentsBlock; trackBy: listTrackBy">
+          <p class="instrument-row">
+            <span>{{ instrument.name }}</span>
+            <span [class]="(instrument.price.price_24h_change > 0 ? 'positive' : 'negative') + ' price'">
+              {{ instrument.price.ask }}
+            </span>
+            <span [class]="instrument.price.price_24h_change > 0 ? 'positive' : 'negative'">
+              {{ instrument.price.price_24h_change }}
+            </span>
+
+            <button mat-raised-button color="primary" class="swap-button">Swap</button>
+          </p>
+        </section>
+      </section> 
   </ng-template>
 </section>

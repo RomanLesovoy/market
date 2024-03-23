@@ -12,8 +12,8 @@ export class HistoryComponent {
   }
 
   ngOnInit( ) {
-    this.service.watchInstruments().valueChanges.subscribe(({data, error}: any) => {
-      console.log(data)
-    })
+    // this.service.watchInstruments().valueChanges.subscribe(({data, error}: any) => {
+    //   console.log(data)
+    // })
   }
 }

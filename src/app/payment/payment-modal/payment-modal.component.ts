@@ -2,25 +2,16 @@ import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
-  MatDialog,
 } from '@angular/material/dialog';
 
-// @Component({
-//   selector: 'app-payment-modal-c',
-//   template: '',
-// })
-// export class PaymentModalComponent {
-//   constructor(
-//     public dialog: MatDialog,
-//   ) {
-//     console.log(0)
-//   }
+export const enum PaymentAction {
+  Deposit = 'deposit',
+  Withdraw = 'withdraw'
+}
 
-//   ngOnInit() {
-//     console.log(1)
-//     this.dialog.open(PaymentDialogComponent, { data: { }});
-//   }
-// }
+export interface DialogData {
+  paymentAction: PaymentAction,
+}
 
 @Component({
   selector: 'app-payment-modal',
@@ -30,10 +21,8 @@ import {
 export class PaymentDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, // todo
-  ) {
-    console.log(2)
-  }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) {}
 
   onCancelClick(): void {
     this.dialogRef.close();
