@@ -9,21 +9,27 @@ import { debounceTime } from 'rxjs'; // explain: pipe + debounceTime  https://an
 })
 export class MarketsComponent {
   public loading: boolean;
-  public instruments: Array<any>; // todo
+  public instrumentsBlocks: Array<any>;
+ 
 
   constructor(private service: MarketsService) {
-    this.loading = false;
-    this.instruments = [];
+    this.loading = true;
+    this.instrumentsBlocks = [];
   }
 
   ngOnInit(): void {
-    this.service.watchInstruments().valueChanges.pipe(debounceTime(1000)).subscribe(({data, error}: any) => {
+    this.service.getInstruments();
+    this.service.instruments.pipe(debounceTime(1000)).subscribe((instruments) => {
       this.loading = false;
-      this.instruments = data.instruments;
+      this.instrumentsBlocks = Object.values(instruments).sort((a, b) => b.length - a.length);
     });
   }
 
   listTrackBy(instrument: any, index: number) {
     return `${instrument.name}${index}`;
+  }
+
+  onSwap() {
+    // todo
   }
 }

@@ -1,0 +1,17 @@
+<section [class]="data.paymentAction + ' payment'">
+  <mat-dialog-content>
+    <mat-tab-group animationDuration="0ms" class="payment-modal-tabs">
+      <mat-tab label="Deposit">
+        <app-deposit-content></app-deposit-content>
+      </mat-tab>
+      <mat-tab label="Withdraw">
+        <app-withdraw-content></app-withdraw-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">no</button>
+    <button mat-button cdkFocusInitial>Ok</button>
+  </mat-dialog-actions>
+</section>

@@ -9,6 +9,8 @@ import { ApolloProvider } from '../apollo';
 import { Apollo, ApolloModule } from 'apollo-angular';
 import { HttpClientModule } from '@angular/common/http';
 
+import { ShareLibModulesModule } from './shared/share-lib-modules/share-lib-modules.module';
+
 import { initializeAmplify } from './aws.config';
 import { CognitoService } from './cognito.service';
 import { MarketsComponent } from './markets/markets.component';
@@ -27,6 +29,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     AppRoutingModule,
     ApolloModule,
     HeaderComponent,
+    ShareLibModulesModule, // explain: we can use modules to import\export
   ],
   providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync()],
   bootstrap: [AppComponent]
