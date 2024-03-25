@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -18,6 +18,7 @@ export interface DialogData {
   selector: 'app-payment-modal',
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class PaymentDialogComponent {
   constructor(

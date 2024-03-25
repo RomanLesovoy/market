@@ -1,12 +1,11 @@
 
-<section class="markets">
+<section [class]="loading ? 'markets no-content' : 'markets'">
   <div class="flex-center" *ngIf="loading else showData">
     <mat-spinner></mat-spinner>
   </div>
 
   <ng-template #showData>
       <section *ngFor="let instrument of instrumentsBlocks.flat()" class="markets-list">
-        <!-- <section *ngFor="let instrument of instrumentsBlock; trackBy: listTrackBy"> -->
           <section class="instrument-row">
             <div class="row-1">
               <span class="instrument-name">{{ instrument.name }}</span>
@@ -25,7 +24,6 @@
                 {{ instrument.price.price_24h_change }} %
               </span>
             </div>
-          <!-- </section> -->
         </section>
       </section> 
   </ng-template>
