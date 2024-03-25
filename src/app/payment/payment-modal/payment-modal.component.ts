@@ -5,15 +5,6 @@ import {
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-export const enum PaymentAction {
-  Deposit = 'deposit',
-  Withdraw = 'withdraw'
-}
-
-export interface DialogData {
-  paymentAction: PaymentAction,
-}
-
 @Component({
   selector: 'app-payment-modal',
   templateUrl: './payment-modal.component.html',
@@ -24,7 +15,7 @@ export class PaymentDialogComponent {
   constructor(
     public router: Router,
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: any, // explain: works like a prop for modal to pass any data with fn call
   ) {}
 
   onCancelClick(): void {

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DepositComponent } from './deposit/deposit.component';
+import { PaymentComponent } from './payment.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DepositComponent,
+    component: PaymentComponent,
   },
   {
     path: '**',

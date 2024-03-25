@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WithdrawComponent } from './withdraw.component';
+import { SwapContentComponent } from './swap-content.component';
 
-describe('WithdrawComponent', () => {
-  let component: WithdrawComponent;
-  let fixture: ComponentFixture<WithdrawComponent>;
+describe('SwapContentComponent', () => {
+  let component: SwapContentComponent;
+  let fixture: ComponentFixture<SwapContentComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [WithdrawComponent]
+      declarations: [SwapContentComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(WithdrawComponent);
+    fixture = TestBed.createComponent(SwapContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

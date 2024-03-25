@@ -1,10 +1,24 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { PaymentDialogComponent } from './payment-modal/payment-modal.component';
 
 @Component({
   selector: 'app-payment',
-  templateUrl: './payment.component.html',
+  template: '',
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent {
-  constructor() {}
+  dialogRef: MatDialogRef<PaymentDialogComponent> | undefined;
+
+  constructor(
+    public dialog: MatDialog,
+  ) {}
+
+  ngOnInit() {
+    this.dialogRef = this.dialog.open(PaymentDialogComponent, { });
+  }
+
+  ngOnDestroy() {
+    this.dialogRef?.close();
+  }
 }

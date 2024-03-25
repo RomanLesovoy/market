@@ -1,4 +1,4 @@
-<section [class]="data.paymentAction + ' payment'">
+<section [class]="'payment'">
   <mat-dialog-content>
     <mat-tab-group animationDuration="0ms" class="payment-modal-tabs">
       <mat-tab>
@@ -16,6 +16,15 @@
         </ng-template>
         <ng-template matTabContent>
           <app-withdraw-content></app-withdraw-content>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span class="payment-modal-tab-label">Swap</span>
+        </ng-template>
+        <ng-template matTabContent>
+          <app-swap-content></app-swap-content>
         </ng-template>
       </mat-tab>
     </mat-tab-group>
