@@ -1,5 +1,7 @@
 import { APOLLO_OPTIONS } from 'apollo-angular';
-import { ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { ApolloLink, InMemoryCache, split } from '@apollo/client/core';
+import { WebSocketLink } from "@apollo/client/link/ws";
+import { getMainDefinition } from "@apollo/client/utilities"
 import { setContext } from '@apollo/client/link/context';
 import { HttpLink } from 'apollo-angular/http';
 
@@ -11,6 +13,13 @@ export function createApollo(httpLink: HttpLink) {
       Accept: 'application/json',
     },
   }));
+
+  const ws = new WebSocketLink({
+    uri: `wss://vakotrade.cryptosrvc-dev.com/graphql`,
+    options: {
+      reconnect: true
+    }
+  });
  
   const auth = setContext((operation, context) => {
     const token = localStorage.getItem('token');
@@ -25,8 +34,19 @@ export function createApollo(httpLink: HttpLink) {
       };
     }
   });
- 
-  const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
+
+  const http = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
+
+  const link: ApolloLink = split(
+    // split based on operation type
+    ({ query }) => {
+      let definition = getMainDefinition(query);
+      return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';  // explain: switcher between connection types
+    },
+    ws,
+    http,
+  );
+
   const cache = new InMemoryCache();
  
   return {

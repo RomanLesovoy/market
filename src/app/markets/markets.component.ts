@@ -11,23 +11,28 @@ import { debounceTime } from 'rxjs'; // explain: pipe + debounceTime  https://an
 })
 export class MarketsComponent {
   public loading: boolean;
-  public instrumentsBlocks: Array<any>;
+  public instruments: Array<any>;
   public dialogRef: MatDialogRef<PaymentDialogComponent> | undefined;
 
   constructor(private service: MarketsService, public dialog: MatDialog,) {
     this.loading = true;
-    this.instrumentsBlocks = [];
+    this.instruments = [];
   }
 
   ngOnInit(): void {
     this.service.getInstruments();
     this.service.instruments.pipe(debounceTime(1000)).subscribe((instruments) => {
       this.loading = false;
-      this.instrumentsBlocks = Object.values(instruments).sort((a, b) => b.length - a.length);
+      this.instruments = instruments;
+      this.service.subscribeInstruments();
     });
   }
 
   listTrackBy(instrument: any, index: number) {
     return `${instrument.name}${index}`;
+  }
+
+  ngOnDestroy() {
+    this.service.unsubscribeInstruments();
   }
 }

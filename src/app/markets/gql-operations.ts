@@ -17,4 +17,16 @@ const GET_INSTRUMENTS = gql `
   }
 `;
 
-export { GET_INSTRUMENTS }
+const SUBSCRIBE_INSTRUMENTS = gql `
+  subscription ($instrument_id: String) {
+    instrument_price (instrument_id: $instrument_id)  {
+      ask
+      instrument_id
+      price_24h_change
+      ts_iso
+      __typename
+    }
+  }
+`;
+
+export { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS }
