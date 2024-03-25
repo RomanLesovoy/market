@@ -4,7 +4,6 @@ const GET_HISTORY = gql `
   query {
     account_transactions {
       created_at_iso
-      currency
       account_transaction_id
       currency_id
       type

@@ -1,0 +1,24 @@
+section.history {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 100%;
+  margin-top: 10px;
+
+  .table-history {
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: 20px;
+
+    th, td {
+      color: white;
+      font-size: 18px;
+    }
+
+    th {
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #00e18b;
+    }
+  }
+}

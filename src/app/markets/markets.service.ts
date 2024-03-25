@@ -9,9 +9,7 @@ import { GET_INSTRUMENTS } from './gql-operations';
 export class MarketsService {
   instruments: Subject<Array<any>> = new Subject(); // explain: Subject is observable object;
 
-  constructor(private apollo: Apollo){
-    console.log('constr markets')
-  }
+  constructor(private apollo: Apollo){}
 
   getInstruments() {
     const prepareInstruments = <T>(instruments: Array<T>): { [name: string]: Array<T> } => {

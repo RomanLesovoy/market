@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -20,6 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginator,
   ],
   exports: [
     MatButtonModule,
@@ -29,6 +33,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatPaginator,
   ]
 })
 export class ShareLibModulesModule { }

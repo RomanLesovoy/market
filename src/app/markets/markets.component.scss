@@ -2,11 +2,7 @@ section.markets {
   display: flex;
   flex-wrap: wrap;
   flex: 0 0 100%;
-  margin-top: 30px;
-
-  &.no-content {
-    height: 100%;
-  }
+  margin-top: 10px;
 
   .markets-list {
     margin: 10px;
