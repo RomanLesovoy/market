@@ -1,20 +1,20 @@
 
 <section class="markets">
-  <div *ngIf="loading else showData">
-    loading data
+  <div class="flex-center" *ngIf="loading else showData">
+    <mat-spinner></mat-spinner>
   </div>
-  <ng-template #showData>
-      <!-- <div *ngFor="let instrument of instruments; trackBy: listTrackBy" class="markets-list">
-          <p>{{ instrument.name }}</p>
-      </div> -->
 
+  <ng-template #showData>
       <section *ngFor="let instrument of instrumentsBlocks.flat()" class="markets-list">
         <!-- <section *ngFor="let instrument of instrumentsBlock; trackBy: listTrackBy"> -->
           <section class="instrument-row">
             <div class="row-1">
               <span class="instrument-name">{{ instrument.name }}</span>
         
-              <button mat-raised-button color="accent" class="swap-button">Swap</button>
+              <a routerLink="/payment">
+                <button mat-raised-button color="accent" class="swap-button">Swap</button>
+              </a>
+              
             </div>
             <div class="row-2">
               <span [class]="(instrument.price.price_24h_change > 0 ? 'positive' : 'negative') + ' price'">

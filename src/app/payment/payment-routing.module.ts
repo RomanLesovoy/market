@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DepositComponent } from './deposit/deposit.component';
-import { WithdrawComponent } from './withdraw/withdraw.component';
 
 const routes: Routes = [
   {
-    path: 'deposit',
+    path: '',
     component: DepositComponent,
   },
   {
-    path: 'withdraw',
-    component: WithdrawComponent,
-  },
-  {
     path: '**',
-    redirectTo: 'deposit'
+    redirectTo: ''
   }
 ];
 

@@ -1,11 +1,22 @@
 <section [class]="data.paymentAction + ' payment'">
   <mat-dialog-content>
     <mat-tab-group animationDuration="0ms" class="payment-modal-tabs">
-      <mat-tab label="Deposit">
-        <app-deposit-content></app-deposit-content>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span>Deposit</span>
+        </ng-template>
+        <ng-template matTabContent>
+          <app-deposit-content></app-deposit-content>
+        </ng-template>
       </mat-tab>
-      <mat-tab label="Withdraw">
-        <app-withdraw-content></app-withdraw-content>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <span>Withdraw</span>
+        </ng-template>
+        <ng-template matTabContent>
+          <app-withdraw-content></app-withdraw-content>
+        </ng-template>
       </mat-tab>
     </mat-tab-group>
   </mat-dialog-content>
