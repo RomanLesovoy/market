@@ -3,6 +3,7 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 export const enum PaymentAction {
   Deposit = 'deposit',
@@ -20,11 +21,16 @@ export interface DialogData {
 })
 export class PaymentDialogComponent {
   constructor(
+    public router: Router,
     public dialogRef: MatDialogRef<PaymentDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) {}
 
   onCancelClick(): void {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy() {
+    this.router.navigateByUrl('markets');
   }
 }

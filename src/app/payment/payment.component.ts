@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent {
-
+  constructor() {}
 }

@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatDialogModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatButtonModule,
@@ -26,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatFormFieldModule,
     MatDialogModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class ShareLibModulesModule { }
