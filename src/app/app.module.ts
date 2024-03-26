@@ -13,22 +13,24 @@ import { ShareLibModulesModule } from './shared/share-lib-modules/share-lib-modu
 
 import { initializeAmplify } from './aws.config';
 import { CognitoService } from './cognito.service';
-import { MarketsComponent } from './markets/markets.component';
 import { HistoryComponent } from './history/history.component';
 import { HeaderComponent } from './header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MarketsModule } from './markets/markets.module';
+import { FilterPipe } from './shared/pipes/filter-pipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MarketsComponent,
     HistoryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ApolloModule,
+    MarketsModule,
     HeaderComponent,
+    FilterPipe,
     ShareLibModulesModule, // explain: we can use modules to import\export
   ],
   providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync()],

@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,8 @@ import { MatPaginator } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginator,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   exports: [
     MatButtonModule,
@@ -35,6 +38,8 @@ import { MatPaginator } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginator,
+    MatFormFieldModule,
+    MatSelectModule,
   ]
 })
 export class ShareLibModulesModule { }

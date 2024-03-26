@@ -10,7 +10,7 @@ import { AppRoutingModule } from '../app-routing.module';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  standalone: true,
+  standalone: true, // explain: standalone gets properties of Module
   imports: [CommonModule, MatButtonModule, MatIconModule, AppRoutingModule], // explain: without CommonModule not working directives such ngIf | AppRoutingModule we need if component is standalone
 })
 export class HeaderComponent {

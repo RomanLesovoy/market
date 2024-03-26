@@ -1,0 +1,13 @@
+<section class="currency-selector">
+
+  <mat-form-field >
+    <mat-label>Select currency</mat-label>
+    <mat-select [(value)]="selectedCurrency" (selectionChange)="onChangeCurrency($event.value)">
+      <mat-option>None</mat-option>
+   
+      <mat-option *ngFor="let currency of currencies | filterValuePipe:'currency_id':excludeCurrency" [value]="currency.currency_id">{{currency.currency_id}}</mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+</section>

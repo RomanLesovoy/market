@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { map, Subject, interval, BehaviorSubject, Subscription } from 'rxjs';
-import { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
+import { map, Subject, interval, BehaviorSubject, Subscription, filter } from 'rxjs';
+import { GET_CURRENCIES, GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketsService {
+  currencies: BehaviorSubject<Array<never>> = new BehaviorSubject([]);
   instruments: BehaviorSubject<Array<never>> = new BehaviorSubject([]); // explain: BehaviorSubject with current value;
   prices: { [instrument_id: string]: any } = {};
   interval: Subscription | null = null;
   subscriptionPrices: Array<Subject<any>> = []; // Subject is observable object
 
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) {
+    this.getCurrencies();
+  }
+
+  getCurrencies() {
+    this.apollo.watchQuery({
+      query: GET_CURRENCIES,
+    }).valueChanges.subscribe(({ data }: any) => {
+      this.currencies.next(data.currencies.filter((c: any) => !!c.payment_routes.length));
+    });
+  }
 
   getInstruments() {
     this.apollo.watchQuery({
