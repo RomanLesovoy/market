@@ -1,2 +1,17 @@
-<app-currency-selector [onChangeCurrency]="changeBaseCurrency" [excludeCurrency]="quoteCurrency"></app-currency-selector>
-<app-currency-selector [onChangeCurrency]="changeQuoteCurrency" [excludeCurrency]="baseCurrency"></app-currency-selector>
+<section class="deposit-content">
+  <app-currency-selector [onChangeCurrency]="onChangeCurrency" [excludeCurrency]="''"></app-currency-selector>
+
+  <mat-form-field>
+    <mat-label>Select provider</mat-label>
+    <mat-select [(value)]="selectedPaymentRouteId" [disabled]="!selectedCurrency.payment_routes.length" (selectionChange)="onChangeProvider($event.value)">
+      <mat-option>None</mat-option>
+   
+      <mat-option *ngFor="let provider of selectedCurrency.payment_routes" [value]="provider.payment_route_id">{{provider.name}}</mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-dialog-actions>
+    <button [disabled]="!selectedPaymentRouteId" (click)="createDeposit()" mat-raised-button color="primary">Generate</button>
+  </mat-dialog-actions>
+</section>

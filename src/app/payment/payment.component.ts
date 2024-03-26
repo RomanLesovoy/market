@@ -5,7 +5,6 @@ import { PaymentDialogComponent } from './payment-modal/payment-modal.component'
 @Component({
   selector: 'app-payment',
   template: '',
-  styleUrl: './payment.component.scss'
 })
 export class PaymentComponent {
   dialogRef: MatDialogRef<PaymentDialogComponent> | undefined;

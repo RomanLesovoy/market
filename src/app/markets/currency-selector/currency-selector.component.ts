@@ -1,5 +1,4 @@
 import { Component, Input, ViewEncapsulation, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-import { FilterPipe } from '../../shared/pipes/filter-pipe.pipe';
 import { MarketsService } from '../markets.service';
 
 @Component({
@@ -15,9 +14,9 @@ export class CurrencySelectorComponent {
   public currencies: Array<any> = [];
 
   @Input() excludeCurrency = ''; // explain: prop to pass from parent
-  @Input() onChangeCurrency = (value: string) => {};
+  @Input() onChangeCurrency = (value: string, currency: any) => {};
 
-  constructor (public service: MarketsService, public filterPipe: FilterPipe) {
+  constructor (public service: MarketsService) {
     this.service.currencies.subscribe((currencies: Array<any>) =>
       this.currencies = currencies
     );
@@ -28,5 +27,9 @@ export class CurrencySelectorComponent {
     if (changes.excludeCurrency.previousValue !== changes.excludeCurrency.currentValue) {
       //
     }
+  }
+
+  changeCurrency(value: string) {
+    this.onChangeCurrency(value, this.currencies.find((c) => c.currency_id === value));
   }
 }

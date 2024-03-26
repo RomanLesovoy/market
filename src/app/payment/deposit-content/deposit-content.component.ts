@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PaymentService } from '../payment.service';
 
 @Component({
   selector: 'app-deposit-content',
@@ -6,20 +7,22 @@ import { Component } from '@angular/core';
   styleUrl: './deposit-content.component.scss',
 })
 export class DepositContentComponent {
-  baseCurrency: string = '';
-  public quoteCurrency: string = '';
+  public selectedCurrency: any = { payment_routes: [] };
+  public selectedPaymentRouteId: string = '';
 
-  // @Output() emitter: EventEmitter<string> = new EventEmitter<string>();
-  // explain: emitter lets you to pass data to parent, use in child @Input with same name and subscribe
+  constructor(private service: PaymentService) {}
 
-  constructor() {}
-
-  changeBaseCurrency = (currency: string) => { // explain: arrow function otherwise context will be lost
-    this.baseCurrency = currency;
-    // this.emitter.emit(currency);
+  onChangeCurrency = (_currency_id: string, currency: any) => {
+    this.selectedPaymentRouteId = '';
+    this.selectedCurrency = currency;
   }
 
-  changeQuoteCurrency = (currency: string) => {
-    this.quoteCurrency = currency;
+  onChangeProvider = (payment_route_id: string) => {
+    this.selectedPaymentRouteId = payment_route_id;
+  }
+
+  createDeposit() {
+    this.service.createDeposit({ currency_id: this.selectedCurrency.currency_id, payment_route_id: this.selectedPaymentRouteId })
+      .subscribe((res) => console.log(res))
   }
 }
