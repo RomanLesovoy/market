@@ -1,0 +1,15 @@
+.deposit-content {
+  mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 400px;
+      max-width: 90%;
+
+      &[disabled] {
+        color: white;
+      }
+    }
+  }
+}

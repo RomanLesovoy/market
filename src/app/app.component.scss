@@ -29,3 +29,37 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.payment {
+  mat-form-field {
+    margin: 20px auto;
+    display: block;
+    max-width: 90%;
+    width: 500px;
+  
+    .mdc-text-field {
+      background-color: transparent; 
+    }
+  }
+  
+  mat-label {
+    font-size: 14px;
+  }
+  
+  mat-label, .mat-mdc-select-arrow-wrapper svg {
+    color: white;
+  }
+  
+  .mat-mdc-select-value {
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .mat-mdc-select-value-text {
+    color: #00e18b;
+  }
+  
+  .mdc-line-ripple {
+    display: none;
+  }
+}

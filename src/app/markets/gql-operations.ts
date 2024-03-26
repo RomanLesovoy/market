@@ -17,6 +17,22 @@ const GET_INSTRUMENTS = gql `
   }
 `;
 
+const GET_CURRENCIES = gql `
+  query {
+    currencies (type:crypto, is_active:on) {
+      currency_id
+      is_active
+      payment_routes {
+        payment_route_id
+        psp_service_id
+        name
+        crypto_network
+      }
+      precision
+    }
+  }
+`
+
 const SUBSCRIBE_INSTRUMENTS = gql `
   subscription ($instrument_id: String) {
     instrument_price (instrument_id: $instrument_id)  {
@@ -29,4 +45,4 @@ const SUBSCRIBE_INSTRUMENTS = gql `
   }
 `;
 
-export { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS }
+export { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS, GET_CURRENCIES }

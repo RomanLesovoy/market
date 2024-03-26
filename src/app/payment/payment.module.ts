@@ -8,6 +8,8 @@ import { PaymentComponent } from './payment.component';
 import { ShareLibModulesModule } from '../shared/share-lib-modules/share-lib-modules.module';
 import { WithdrawContentComponent } from './withdraw-content/withdraw-content.component';
 import { SwapContentComponent } from './swap-content/swap-content.component';
+import { MarketsModule } from '../markets/markets.module';
+import { PaymentService } from './payment.service';
 
 
 @NgModule({
@@ -21,7 +23,11 @@ import { SwapContentComponent } from './swap-content/swap-content.component';
   imports: [
     CommonModule,
     PaymentRoutingModule,
+    MarketsModule, // explain without import module we can't use it's own components + requires to restart build
     ShareLibModulesModule, // explain: we can use modules to import\export
   ],
+  providers: [
+    PaymentService,
+  ]
 })
 export class PaymentModule {}

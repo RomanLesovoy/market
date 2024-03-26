@@ -9,6 +9,10 @@ section.payment {
     text-transform: uppercase;
   }
 
+  mat-tab-body {
+    padding-top: 20px;
+  }
+
   .mdc-tab:not([aria-selected="true"]) .payment-modal-tab-label { // explain: .mdc-tab can't access without encapsulation: ViewEncapsulation.None
     color: white;
   }

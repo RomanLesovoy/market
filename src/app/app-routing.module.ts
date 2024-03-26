@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './auth/auth-guard.service';
-import { MarketsComponent } from './markets/markets.component';
 import { HistoryComponent } from './history/history.component';
 import { PaymentComponent } from './payment/payment.component';
+import { InstrumentsComponent } from './markets/instruments/instruments.component';
 
 const routes: Routes = [
   {
     path: 'markets',
-    component: MarketsComponent,
+    component: InstrumentsComponent,
+    loadChildren: () => import('./markets/markets.module').then(m => m.MarketsModule),
   },
   { 
     path: 'history',
