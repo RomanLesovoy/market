@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { map, Subject, interval, BehaviorSubject, Subscription, filter } from 'rxjs';
+import { map, Subject, interval, BehaviorSubject, Subscription } from 'rxjs';
 import { GET_BALANCES, GET_CURRENCIES, GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MarketsService {
+export class MarketsService implements OnDestroy {
   currencies: BehaviorSubject<Array<never>> = new BehaviorSubject([]);
   balances: BehaviorSubject<Array<never>> = new BehaviorSubject([]);
   instruments: BehaviorSubject<Array<never>> = new BehaviorSubject([]); // explain: BehaviorSubject with current value;
@@ -14,36 +14,49 @@ export class MarketsService {
   interval: Subscription | null = null;
   subscriptionPrices: Array<Subject<any>> = []; // Subject is observable object
 
+  private subscriptions: Array<Subscription> = [];
+
   constructor(private apollo: Apollo) {
     this.getCurrencies();
   }
 
-  getBalances() {
-    this.apollo.watchQuery({
-      query: GET_BALANCES,
-      fetchPolicy: 'no-cache',
-    }).valueChanges.subscribe(({ data }: any) => {
-      this.balances.next(data.accounts_balances.filter((b: any) => !!b.currency.is_active && !!Number(b.free_balance)));
-    })
+  ngOnDestroy(): void { // explain
+    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.unsubscribeInstruments();
   }
 
-  getCurrencies() {
-    this.apollo.watchQuery({
-      query: GET_CURRENCIES,
-    }).valueChanges.subscribe(({ data }: any) => {
-      this.currencies.next(data.currencies.filter((c: any) => !!c.payment_routes.length));
-    });
+  getBalances() {
+    this.subscriptions.push(
+      this.apollo.watchQuery({
+        query: GET_BALANCES,
+        fetchPolicy: 'no-cache',
+      }).valueChanges.subscribe(({ data }: any) => {
+        this.balances.next(data.accounts_balances.filter((b: any) => !!b.currency.is_active && !!Number(b.free_balance)));
+      })
+    )
+  }
+
+  getCurrencies() { // explain watchQuery
+    this.subscriptions.push(
+      this.apollo.watchQuery({
+        query: GET_CURRENCIES,
+      }).valueChanges.subscribe(({ data }: any) => {
+        this.currencies.next(data.currencies.filter((c: any) => !!c.payment_routes.length));
+      })
+    )
   }
 
   getInstruments() {
-    this.apollo.watchQuery({
-      query: GET_INSTRUMENTS,
-    }).valueChanges.pipe(
-      // @ts-ignore
-        map((v) => ({ ...v, data: { ...v.data, instruments: v.data.instruments.filter((i) => !!i.price && !!i.price.ask) }}))
-      ).subscribe(({data, error}: any) => {
-      this.instruments.next(data.instruments);
-    });
+    this.subscriptions.push(
+      this.apollo.watchQuery({
+        query: GET_INSTRUMENTS,
+      }).valueChanges.pipe(
+        // @ts-ignore
+          map((v) => ({ ...v, data: { ...v.data, instruments: v.data.instruments.filter((i) => !!i.price && !!i.price.ask) }}))
+        ).subscribe(({data, error}: any) => {
+        this.instruments.next(data.instruments);
+      })
+    )
   }
 
   subscribeInstruments() {
@@ -69,11 +82,5 @@ export class MarketsService {
     this.subscriptionPrices.forEach(s => s.unsubscribe());
     this.interval?.unsubscribe();
     this.subscriptionPrices = [];
-  }
-
-  watchQueryInstruments() {
-    return this.apollo.watchQuery({ // explain watchQuery
-      query: GET_INSTRUMENTS,
-    })
   }
 }
