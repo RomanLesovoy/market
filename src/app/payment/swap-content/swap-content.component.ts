@@ -25,6 +25,14 @@ export class SwapContentComponent {
 
   constructor(private service: PaymentService, private toast: ToastrService) {}
 
+  resetData() {
+    this.amountBase = '0';
+    this.amountQuote = '0';
+    this.baseCurrency = '';
+    this.quoteCurrency = '';
+    this.conversionQuote = null;
+  }
+
   changeBaseCurrency = (currency: string) => { // explain: arrow function otherwise context will be lost
     this.baseCurrency = currency;
     // this.emitter.emit(currency);
@@ -45,6 +53,13 @@ export class SwapContentComponent {
     this.conversionQuote = null;
     this.amountQuote = eventTarget.value;
   }
+
+  unifiedHandleRequestComplete(errors: Array<any> | null) {
+    this.isLoading = false;
+    if (errors?.length) {
+      this.toast.error(errors[0].message);
+    }
+  }
   
   createConversionQuote() {
     if (!this.canCreateConversionQuote) return;
@@ -56,18 +71,32 @@ export class SwapContentComponent {
       source_currency_amount: Number(this.amountBase) || undefined,
       target_currency_amount: Number(this.amountQuote) || undefined,
     })
-    .pipe(delay(700))
-    .subscribe(({ data, errors }: any) => {
-      this.isLoading = false;
-      if (errors?.length) {
-        this.toast.error(errors[0].message);
-      }
-      if (data?.create_conversion_quote) {
-        const conversion = data.create_conversion_quote
-        this.conversionQuote = conversion;
-        this.amountBase = conversion.source_currency_amount;
-        this.amountQuote = conversion.target_currency_amount;
-      }  
-    });
+      .pipe(delay(700))
+      .subscribe(({ data, errors }: any) => {
+        this.unifiedHandleRequestComplete(errors);
+        if (data?.create_conversion_quote) {
+          const conversion = data.create_conversion_quote
+          this.conversionQuote = conversion;
+          this.amountBase = conversion.source_currency_amount;
+          this.amountQuote = conversion.target_currency_amount;
+        }  
+      });
+  }
+
+  createConversion() {
+    if (!this.conversionQuote?.conversion_quote_id) return;
+    this.isLoading = true;
+    const conversion_quote_id = this.conversionQuote.conversion_quote_id;
+    this.conversionQuote = null;
+
+    this.service.createConversion({ conversion_quote_id })
+      .pipe(delay(700))
+      .subscribe(({ data, errors }: any) => {
+        this.unifiedHandleRequestComplete(errors);
+        if (data.create_conversion_order) {
+          this.toast.success('Converted!');
+          this.resetData();
+        }
+      });
   }
 }

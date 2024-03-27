@@ -19,14 +19,14 @@
 
   <ng-container *ngIf="conversionQuote">
     <p class="list-conversion-info">
-      <span>Price:</span><span>{{ conversionQuote['price'] }}</span>
-      <span>Fee:</span><span>{{ conversionQuote['fee_currency_id'] + ': ' }}{{ conversionQuote['fee_currency_amount'] }}</span>
+      <span>Price:</span><span>{{ conversionQuote.price }}</span>
+      <span>Fee:</span><span>{{ conversionQuote.fee_currency_id + ': ' }}{{ conversionQuote.fee_currency_amount }}</span>
     </p>
   </ng-container>
 
   <mat-dialog-actions>
     <button *ngIf="!conversionQuote" [disabled]="!canCreateConversionQuote" (click)="createConversionQuote()" mat-raised-button color="primary">Create quote</button>
   
-    <button *ngIf="conversionQuote" (click)="null" mat-raised-button color="primary">Convert</button>
+    <button *ngIf="conversionQuote" (click)="null" mat-raised-button color="primary" (click)="createConversion()">Convert</button>
   </mat-dialog-actions>
 </section>

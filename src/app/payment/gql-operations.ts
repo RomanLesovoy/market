@@ -22,4 +22,12 @@ const CREATE_CONVERSION_QUOTE = gql `
   }
 `
 
-export { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE }
+const CREATE_CONVERSION = gql `
+  mutation ($conversion_quote_id: String!) {
+    create_conversion_order(conversion_quote_id: $conversion_quote_id) {
+      conversion_id
+    }
+  }
+`
+
+export { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE, CREATE_CONVERSION }

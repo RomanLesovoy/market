@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE } from './gql-operations';
+import { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE, CREATE_CONVERSION } from './gql-operations';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,14 @@ export class PaymentService {
   createConversionQuote(payload: { source_currency_id: string, target_currency_id: string, source_currency_amount: number | undefined, target_currency_amount: number | undefined }) {
     return this.apollo.mutate({
       mutation: CREATE_CONVERSION_QUOTE,
+      variables: payload,
+      errorPolicy: 'all'
+    })
+  }
+
+  createConversion(payload: { conversion_quote_id: string }) {
+    return this.apollo.mutate({
+      mutation: CREATE_CONVERSION,
       variables: payload,
       errorPolicy: 'all'
     })
