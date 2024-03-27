@@ -3,6 +3,8 @@ import { Apollo } from 'apollo-angular';
 import { map, Subject, interval, BehaviorSubject, Subscription } from 'rxjs';
 import { GET_BALANCES, GET_CURRENCIES, GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
 
+//   interval(1000).pipe(take(2), map((v) => v + 1)).subscribe({ next: (v) => console.log(v), complete: () => {console.log('done')} }) // explain
+
 @Injectable({
   providedIn: 'root'
 })
