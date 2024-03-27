@@ -33,6 +33,18 @@ const GET_CURRENCIES = gql `
   }
 `
 
+const GET_BALANCES = gql `
+  query {
+    accounts_balances {
+      currency_id
+      free_balance
+      currency {
+        is_active
+      }
+    }
+  }
+`
+
 const SUBSCRIBE_INSTRUMENTS = gql `
   subscription ($instrument_id: String) {
     instrument_price (instrument_id: $instrument_id)  {
@@ -45,4 +57,4 @@ const SUBSCRIBE_INSTRUMENTS = gql `
   }
 `;
 
-export { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS, GET_CURRENCIES }
+export { GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS, GET_CURRENCIES, GET_BALANCES }

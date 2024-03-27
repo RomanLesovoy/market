@@ -1,5 +1,6 @@
 
-<main class="main">
+<main [class]="!!cognito.isAuthenticated.value ? 'main' : 'main no-auth'">
   <app-header></app-header>
+  <app-balances *ngIf="!!cognito.isAuthenticated.value"></app-balances>
   <router-outlet />
 </main>

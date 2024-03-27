@@ -2,19 +2,19 @@ section.instruments {
   display: flex;
   flex-wrap: wrap;
   flex: 0 0 100%;
-  margin-top: 10px;
+  justify-content: space-between;
 
-  .instruments-list {
+  .instrument {
     margin: 10px;
     background-color: #16192A;
     border-radius: 4px;
     min-width: 250px;
 
-    & > section:last-child .instrument-row {
+    & > section:last-child .instrument-rows {
       border-bottom: none;
     }
 
-    .instrument-row {
+    .instrument-rows {
       min-height: 70px;
       display: flex;
       flex-direction: column;

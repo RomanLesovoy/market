@@ -24,9 +24,11 @@ export class CurrencySelectorComponent {
   }
 
   ngOnChanges(changes: SimpleChanges) { // explain: lifecycle hook to detect changes
-    // @ts-ignore
-    if (changes.excludeCurrency.previousValue !== changes.excludeCurrency.currentValue) {
-      //
+    if (changes.excludeCurrency.previousValue
+      && changes.excludeCurrency.previousValue !== changes.excludeCurrency.currentValue
+      && !changes.excludeCurrency.currentValue
+    ) { // should reset selectedCurrency (was cleared input)
+      this.selectedCurrency = '';
     }
   }
 

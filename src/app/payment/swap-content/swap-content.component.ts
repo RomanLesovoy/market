@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../payment.service';
-import { delay } from 'rxjs';
+import { debounceTime } from 'rxjs';
+import { MarketsService } from '../../markets/markets.service';
 
 @Component({
   selector: 'app-swap-content',
@@ -23,7 +24,7 @@ export class SwapContentComponent {
   // @Output() emitter: EventEmitter<string> = new EventEmitter<string>();
   // explain: emitter lets you to pass data to parent, use in child @Input with same name and subscribe
 
-  constructor(private service: PaymentService, private toast: ToastrService) {}
+  constructor(private service: PaymentService, private toast: ToastrService, private marketsService: MarketsService) {}
 
   resetData() {
     this.amountBase = '0';
@@ -71,7 +72,7 @@ export class SwapContentComponent {
       source_currency_amount: Number(this.amountBase) || undefined,
       target_currency_amount: Number(this.amountQuote) || undefined,
     })
-      .pipe(delay(700))
+      .pipe(debounceTime(1000))
       .subscribe(({ data, errors }: any) => {
         this.unifiedHandleRequestComplete(errors);
         if (data?.create_conversion_quote) {
@@ -90,12 +91,13 @@ export class SwapContentComponent {
     this.conversionQuote = null;
 
     this.service.createConversion({ conversion_quote_id })
-      .pipe(delay(700))
+      .pipe(debounceTime(1000))
       .subscribe(({ data, errors }: any) => {
         this.unifiedHandleRequestComplete(errors);
         if (data.create_conversion_order) {
           this.toast.success('Converted!');
           this.resetData();
+          setTimeout(() => this.marketsService.getBalances(), 500);
         }
       });
   }

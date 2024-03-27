@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Apollo } from 'apollo-angular';
 import { Auth, Hub } from 'aws-amplify';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CognitoService {
-  public isAuthenticated: boolean = false;
+  public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public token: string = '';
   public user: any; // @todo
 
-  constructor(private apollo: Apollo) {
+  constructor() {
     Hub.listen("auth", ({ payload: { event, data } }: any) => {
       if (event === "cognitoHostedUI" || event === "signedIn") {
         console.log(data, event);
@@ -20,16 +20,13 @@ export class CognitoService {
     });
 
     Auth.currentAuthenticatedUser()
-      .then(user => {
-        console.log('user', user)
-        this.setUser(user);
-      })
+      .then(user => this.setUser(user))
       .catch(() => console.log("Not signed in"));
   }
 
   setUser(data: any) {
     this.user = data; // todo check
-    this.isAuthenticated = true;
+    this.isAuthenticated.next(true);
     this.token = `Bearer ${data.signInUserSession.idToken.jwtToken}`;
     this.updateStorage();
   }
@@ -40,6 +37,7 @@ export class CognitoService {
 
   onLogout() {
     Auth.signOut();
+    this.isAuthenticated.next(false);
   }
 
   updateStorage() {

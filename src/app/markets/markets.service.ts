@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map, Subject, interval, BehaviorSubject, Subscription, filter } from 'rxjs';
-import { GET_CURRENCIES, GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
+import { GET_BALANCES, GET_CURRENCIES, GET_INSTRUMENTS, SUBSCRIBE_INSTRUMENTS } from './gql-operations';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MarketsService {
   currencies: BehaviorSubject<Array<never>> = new BehaviorSubject([]);
+  balances: BehaviorSubject<Array<never>> = new BehaviorSubject([]);
   instruments: BehaviorSubject<Array<never>> = new BehaviorSubject([]); // explain: BehaviorSubject with current value;
   prices: { [instrument_id: string]: any } = {};
   interval: Subscription | null = null;
@@ -15,6 +16,15 @@ export class MarketsService {
 
   constructor(private apollo: Apollo) {
     this.getCurrencies();
+  }
+
+  getBalances() {
+    this.apollo.watchQuery({
+      query: GET_BALANCES,
+      fetchPolicy: 'no-cache',
+    }).valueChanges.subscribe(({ data }: any) => {
+      this.balances.next(data.accounts_balances.filter((b: any) => !!b.currency.is_active && !!Number(b.free_balance)));
+    })
   }
 
   getCurrencies() {

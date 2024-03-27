@@ -21,7 +21,8 @@ const routes: Routes = [
     component: PaymentComponent,
     loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),  // explain: if we need lazy - it works only with modules
   },
-  { path: '**', redirectTo: '/markets' } // 404
+  { path: '**', redirectTo: '/markets' }, // 404
+  { path: '', redirectTo: '/markets', pathMatch: 'full' }
 ];
 
 @NgModule({

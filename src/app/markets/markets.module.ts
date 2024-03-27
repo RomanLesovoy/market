@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InstrumentsComponent } from './instruments/instruments.component';
-import { MarketsService } from './markets.service';
 import { ShareLibModulesModule } from '../shared/share-lib-modules/share-lib-modules.module';
 import { CurrencySelectorComponent } from './currency-selector/currency-selector.component';
 import { FilterPipe } from '../shared/pipes/filter-pipe.pipe';
@@ -21,9 +20,6 @@ import { FilterPipe } from '../shared/pipes/filter-pipe.pipe';
   exports: [
     CurrencySelectorComponent,
   ],
-  providers: [
-    MarketsService,
-    FilterPipe,
-  ]
+  providers: []
 })
 export class MarketsModule { }

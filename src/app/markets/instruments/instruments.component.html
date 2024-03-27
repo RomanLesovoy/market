@@ -5,8 +5,8 @@
   </div>
 
   <ng-template #showData>
-      <section *ngFor="let instrument of instruments.flat()" class="instruments-list">
-          <section class="instrument-row">
+      <section *ngFor="let instrument of instruments.flat(); trackBy: listTrackBy" class="instrument">
+          <section class="instrument-rows">
             <div class="row-1">
               <span class="instrument-name">{{ instrument.name }}</span>
         

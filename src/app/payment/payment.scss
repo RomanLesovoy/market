@@ -14,9 +14,12 @@ mat-dialog-container app-payment-modal mat-dialog-content mat-tab-body {
       font-weight: bold;
 
       &[disabled] {
-        color: white;
+        color: #ffffff7d;
+        cursor: not-allowed !important;
       }
     }
+
+    
   }
 
   input[type="number"].mat-mdc-input-element {
@@ -24,5 +27,16 @@ mat-dialog-container app-payment-modal mat-dialog-content mat-tab-body {
     font-size: 22px;
     text-align: center;
     height: 100%;
+  }
+}
+
+mat-dialog-container app-payment-modal mat-dialog-content {
+
+  .mat-mdc-tab-labels {
+    margin-top: 15px;
+
+    .mdc-tab {
+      font-size: 18px;
+    }
   }
 }

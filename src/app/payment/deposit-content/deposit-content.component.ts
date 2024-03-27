@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { PaymentService } from '../payment.service';
-import { delay } from 'rxjs';
+import { debounceTime } from 'rxjs';
+import { MarketsService } from '../../markets/markets.service';
 
 @Component({
   selector: 'app-deposit-content',
@@ -15,7 +16,7 @@ export class DepositContentComponent {
   public isLoading: boolean = false;
   public qrHeight: number = 256;
 
-  constructor(private service: PaymentService) {}
+  constructor(private service: PaymentService, private marketsService: MarketsService) {}
 
   onChangeCurrency = (_currency_id: string, currency: any) => {
     this.selectedPaymentRouteId = '';
@@ -30,10 +31,11 @@ export class DepositContentComponent {
   createDeposit() {
     this.isLoading = true;
     this.service.createDeposit({ currency_id: this.selectedCurrency.currency_id, payment_route_id: this.selectedPaymentRouteId })
-      .pipe(delay(1000))
+      .pipe(debounceTime(1000))
       .subscribe(({ data }: any) => {
         this.isLoading = false;
         this.deposit = data.deposit_address_crypto;
+        setTimeout(() => this.marketsService.getBalances(), 500);
       })
   }
 }

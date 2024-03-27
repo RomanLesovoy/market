@@ -8,7 +8,7 @@
     </button>
   </a>
 
-  <a routerLink="/history">
+  <a routerLink="/history" *ngIf="!!this.cognito.isAuthenticated.value">
     <button mat-raised-button [color]="isActive('/history') ? 'primary' : 'secondary'">
       History
     </button>
@@ -16,7 +16,7 @@
 
   <span class="example-spacer"></span>
 
-  <ng-container *ngIf="!this.cognito.isAuthenticated else showUser">
+  <ng-container *ngIf="!this.cognito.isAuthenticated.value else showUser">
     <button mat-raised-button color="primary" (click)="this.cognito.onLogin()">Login</button>
   </ng-container>
 
