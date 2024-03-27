@@ -13,6 +13,7 @@ export class CurrencySelectorComponent {
   public selectedCurrency: string = '';
   public currencies: Array<any> = [];
 
+  @Input() label = 'Select currency';
   @Input() excludeCurrency = ''; // explain: prop to pass from parent
   @Input() onChangeCurrency = (value: string, currency: any) => {};
 

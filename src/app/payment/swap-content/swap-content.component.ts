@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { PaymentService } from '../payment.service';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-swap-content',
@@ -8,11 +11,19 @@ import { Component } from '@angular/core';
 export class SwapContentComponent {
   public baseCurrency: string = '';
   public quoteCurrency: string = '';
+  public amountBase: string = '0';
+  public amountQuote: string = '0';
+  public isLoading: boolean = false;
+  public conversionQuote: null | { [name: string]: never } = null;
+
+  public get canCreateConversionQuote() {
+    return (!!Number(this.amountBase) || !!Number(this.amountQuote)) && this.baseCurrency && this.quoteCurrency;
+  }
 
   // @Output() emitter: EventEmitter<string> = new EventEmitter<string>();
   // explain: emitter lets you to pass data to parent, use in child @Input with same name and subscribe
 
-  constructor() {}
+  constructor(private service: PaymentService, private toast: ToastrService) {}
 
   changeBaseCurrency = (currency: string) => { // explain: arrow function otherwise context will be lost
     this.baseCurrency = currency;
@@ -21,5 +32,42 @@ export class SwapContentComponent {
 
   changeQuoteCurrency = (currency: string) => {
     this.quoteCurrency = currency;
+  }
+
+  changeAmountBase(eventTarget: any) {
+    this.amountQuote = '0';
+    this.conversionQuote = null;
+    this.amountBase = eventTarget.value;
+  }
+
+  changeAmountQuote(eventTarget: any) {
+    this.amountBase = '0';
+    this.conversionQuote = null;
+    this.amountQuote = eventTarget.value;
+  }
+  
+  createConversionQuote() {
+    if (!this.canCreateConversionQuote) return;
+    this.isLoading = true;
+
+    this.service.createConversionQuote({
+      source_currency_id: this.baseCurrency,
+      target_currency_id: this.quoteCurrency,
+      source_currency_amount: Number(this.amountBase) || undefined,
+      target_currency_amount: Number(this.amountQuote) || undefined,
+    })
+    .pipe(delay(700))
+    .subscribe(({ data, errors }: any) => {
+      this.isLoading = false;
+      if (errors?.length) {
+        this.toast.error(errors[0].message);
+      }
+      if (data?.create_conversion_quote) {
+        const conversion = data.create_conversion_quote
+        this.conversionQuote = conversion;
+        this.amountBase = conversion.source_currency_amount;
+        this.amountQuote = conversion.target_currency_amount;
+      }  
+    });
   }
 }

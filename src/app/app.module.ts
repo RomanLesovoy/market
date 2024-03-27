@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { FilterPipe } from './shared/pipes/filter-pipe.pipe';
     ApolloModule,
     MarketsModule,
     QRCodeModule,
+    ToastrModule.forRoot(),
     HeaderComponent,
     FilterPipe,
     ShareLibModulesModule, // explain: we can use modules to import\export

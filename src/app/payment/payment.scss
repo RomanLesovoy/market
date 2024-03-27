@@ -1,0 +1,28 @@
+mat-dialog-container app-payment-modal mat-dialog-content mat-tab-body {
+  mat-dialog-actions.mat-mdc-dialog-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+
+    button {
+      width: 500px;
+      max-width: 90%;
+      padding: 12px;
+      height: auto;
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: bold;
+
+      &[disabled] {
+        color: white;
+      }
+    }
+  }
+
+  input[type="number"].mat-mdc-input-element {
+    color: white !important;
+    font-size: 22px;
+    text-align: center;
+    height: 100%;
+  }
+}
