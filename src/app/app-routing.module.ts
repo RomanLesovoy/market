@@ -7,6 +7,7 @@ import { InstrumentsComponent } from './markets/instruments/instruments.componen
 // import { PaymentModule } from './payment/payment.module';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/markets', pathMatch: 'full' },
   {
     path: 'markets',
     component: InstrumentsComponent,
@@ -24,7 +25,6 @@ const routes: Routes = [
     // loadChildren: () => PaymentModule,  // explain: if we need lazy - it works only with modules
   },
   { path: '**', redirectTo: '/markets' }, // 404
-  { path: '', redirectTo: '/markets', pathMatch: 'full' }
 ];
 
 @NgModule({
