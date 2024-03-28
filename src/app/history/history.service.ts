@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Subject, of, map, lastValueFrom, from, toArray } from 'rxjs';
+import { Subject, map, lastValueFrom, from, toArray } from 'rxjs';
 import { GET_HISTORY } from './gql-operations';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable() // explain: without providedIn: 'root' - we have to register it in providers
 export class HistoryService {
   public history: Subject<Array<any>> = new Subject(); // todo
 

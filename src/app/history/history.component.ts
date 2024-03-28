@@ -3,6 +3,7 @@ import { HistoryService } from './history.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { debounceTime } from 'rxjs';
+import { PaymentService } from '../payment/payment.service';
 
 @Component({
   selector: 'app-history',
@@ -16,9 +17,9 @@ export class HistoryComponent {
   public displayedColumns: string[] = ['id', 'currency', 'amount', 'type', 'date'];
 
   // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator; // explain
+  @ViewChild(MatPaginator) paginator: MatPaginator; // explain: assign property to view
 
-  constructor(private service: HistoryService) {}
+  constructor(private service: HistoryService, private test: PaymentService) {}
 
   ngOnInit( ) {
     this.service.getHistory();

@@ -4,6 +4,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
 import { HistoryComponent } from './history/history.component';
 import { PaymentComponent } from './payment/payment.component';
 import { InstrumentsComponent } from './markets/instruments/instruments.component';
+// import { PaymentModule } from './payment/payment.module';
 
 const routes: Routes = [
   {
@@ -14,12 +15,13 @@ const routes: Routes = [
   { 
     path: 'history',
     component: HistoryComponent,
-    canActivate: [AuthGuardService] 
+    canActivate: [AuthGuardService], // explain: search for canActivate method in class and run it
   },
   {
     path: 'payment',
     component: PaymentComponent,
-    loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule),  // explain: if we need lazy - it works only with modules
+    canActivate: [AuthGuardService],
+    // loadChildren: () => PaymentModule,  // explain: if we need lazy - it works only with modules
   },
   { path: '**', redirectTo: '/markets' }, // 404
   { path: '', redirectTo: '/markets', pathMatch: 'full' }

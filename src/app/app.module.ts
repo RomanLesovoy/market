@@ -19,9 +19,10 @@ import { HistoryComponent } from './history/history.component';
 import { HeaderComponent } from './header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MarketsModule } from './markets/markets.module';
-import { FilterPipe } from './shared/pipes/filter-pipe.pipe';
 import { BalancesComponent } from './markets/balances/balances.component';
-import { MarketsService } from './markets/markets.service';
+import { HistoryService } from './history/history.service';
+import { PaymentModule } from './payment/payment.module';
+import { PaymentService } from './payment/payment.service';
 
 @NgModule({
   declarations: [
@@ -32,15 +33,15 @@ import { MarketsService } from './markets/markets.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PaymentModule,
     ApolloModule,
     MarketsModule,
     QRCodeModule,
     ToastrModule.forRoot(),
-    HeaderComponent,
-    FilterPipe,
+    HeaderComponent, // explain: why here component
     ShareLibModulesModule, // explain: we can use modules to import\export
   ],
-  providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync(), MarketsService],
+  providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync(), HistoryService, PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

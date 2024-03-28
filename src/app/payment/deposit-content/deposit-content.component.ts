@@ -9,6 +9,7 @@ import { handleErrorOnObservable } from '../../shared/helpers/handleErrorObs';
   selector: 'app-deposit-content',
   templateUrl: './deposit-content.component.html',
   styleUrl: './deposit-content.component.scss',
+  // providers: [PaymentService], // explain: will create a separate instance of service
   encapsulation: ViewEncapsulation.None,
 })
 export class DepositContentComponent {

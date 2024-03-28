@@ -3,14 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from './filter-pipe.pipe';
 
 @NgModule({
-  declarations: [
-    FilterPipe,
-  ],
   exports: [
-    // FilterPipe,
+    FilterPipe,
   ],
   imports: [
     CommonModule,
+    FilterPipe,
   ],
 })
 export class PipesModule { }

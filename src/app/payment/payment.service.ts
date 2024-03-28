@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE, CREATE_CONVERSION, CREATE_WITHDRAW } from './gql-operations';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: null })
 export class PaymentService {
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo) {}
 
   createDeposit(payload: { currency_id: string, payment_route_id: string }) {
     return this.apollo.query({

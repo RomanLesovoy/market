@@ -10,7 +10,5 @@ import { CognitoService } from './cognito.service';
 export class AppComponent {
   title = 'market';
 
-  constructor (public cognito: CognitoService) {
-    console.log(this.cognito.isAuthenticated.value)
-  }
+  constructor (public cognito: CognitoService) {}
 }
