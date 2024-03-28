@@ -1,0 +1,5 @@
+section.withdraw-content {
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    text-transform: none;
+  }
+}

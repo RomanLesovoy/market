@@ -30,4 +30,15 @@ const CREATE_CONVERSION = gql `
   }
 `
 
-export { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE, CREATE_CONVERSION }
+const CREATE_WITHDRAW = gql `
+  mutation ($currency_id: String!, $payment_route_id: String, $amount: Float!, $crypto_address: String!) {
+    create_withdrawal_crypto(currency_id: $currency_id, payment_route_id: $payment_route_id, amount: $amount, crypto_address: $crypto_address) {
+      status
+      message
+      error_message
+      approval_status
+    }
+  }
+`
+
+export { CREATE_DEPOSIT, CREATE_CONVERSION_QUOTE, CREATE_CONVERSION, CREATE_WITHDRAW }

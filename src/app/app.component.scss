@@ -70,7 +70,7 @@ a {
     font-size: 14px;
   }
   
-  mat-label, .mat-mdc-select-arrow-wrapper svg {
+  mat-label, .mat-mdc-select-arrow-wrapper svg, .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
     color: white;
   }
   

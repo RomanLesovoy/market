@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../payment.service';
-import { debounceTime } from 'rxjs';
+import { debounceTime, map } from 'rxjs';
 import { MarketsService } from '../../markets/markets.service';
+import { handleErrorOnObservable } from '../../shared/helpers/handleErrorObs';
 
 @Component({
   selector: 'app-swap-content',
@@ -72,9 +73,9 @@ export class SwapContentComponent {
       source_currency_amount: Number(this.amountBase) || undefined,
       target_currency_amount: Number(this.amountQuote) || undefined,
     })
-      .pipe(debounceTime(1000))
-      .subscribe(({ data, errors }: any) => {
-        this.unifiedHandleRequestComplete(errors);
+      .pipe(debounceTime(1000), handleErrorOnObservable((m: string) => this.toast.error(m)))
+      .subscribe(({ data }: any) => {
+        this.isLoading = false;
         if (data?.create_conversion_quote) {
           const conversion = data.create_conversion_quote
           this.conversionQuote = conversion;
@@ -91,11 +92,11 @@ export class SwapContentComponent {
     this.conversionQuote = null;
 
     this.service.createConversion({ conversion_quote_id })
-      .pipe(debounceTime(1000))
-      .subscribe(({ data, errors }: any) => {
-        this.unifiedHandleRequestComplete(errors);
+      .pipe(debounceTime(1000), handleErrorOnObservable((m: string) => this.toast.error(m)))
+      .subscribe(({ data }: any) => {
+        this.isLoading = false;
         if (data.create_conversion_order) {
-          this.toast.success('Converted!');
+          this.toast.success('Convertion success!');
           this.resetData();
           setTimeout(() => this.marketsService.getBalances(), 500);
         }
