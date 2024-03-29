@@ -9,7 +9,7 @@ import { ShareLibModulesModule } from '../shared/share-lib-modules/share-lib-mod
 import { WithdrawContentComponent } from './withdraw-content/withdraw-content.component';
 import { SwapContentComponent } from './swap-content/swap-content.component';
 import { MarketsModule } from '../markets/markets.module';
-import { PaymentService } from './payment.service';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -25,9 +25,7 @@ import { PaymentService } from './payment.service';
     PaymentRoutingModule,
     MarketsModule, // explain without import module we can't use it's own components + requires to restart build
     ShareLibModulesModule, // explain: we can use modules to import\export
+    QRCodeModule,
   ],
-  providers: [
-    PaymentService,
-  ]
 })
 export class PaymentModule {}

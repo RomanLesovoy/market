@@ -1,15 +1,18 @@
 .deposit-content {
-  mat-dialog-actions {
+  .qrcode {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+  }
 
-    button {
-      width: 400px;
-      max-width: 90%;
-
-      &[disabled] {
-        color: white;
-      }
+  .shadow-qr {
+    canvas {
+      opacity: .2;
     }
   }
+
+  .loader-deposit {
+    min-height: 260px;
+  }
+
 }

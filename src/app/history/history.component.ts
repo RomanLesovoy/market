@@ -16,7 +16,7 @@ export class HistoryComponent {
   public displayedColumns: string[] = ['id', 'currency', 'amount', 'type', 'date'];
 
   // @ts-ignore
-  @ViewChild(MatPaginator) paginator: MatPaginator; // explain
+  @ViewChild(MatPaginator) paginator: MatPaginator; // explain: assign property to view
 
   constructor(private service: HistoryService) {}
 

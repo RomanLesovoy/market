@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { CognitoService } from './cognito.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'market';
+
+  constructor (public cognito: CognitoService) {}
 }

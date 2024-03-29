@@ -25,8 +25,8 @@ export class InstrumentsComponent {
     });
   }
 
-  listTrackBy(instrument: any, index: number) {
-    return `${instrument.name}${index}`;
+  listTrackBy(instrument: any) {
+    return `${instrument.name}`;
   }
 
   ngOnDestroy() {

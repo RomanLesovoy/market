@@ -2,8 +2,11 @@ $modal-width: 800px;
 
 section.payment {
   min-width: $modal-width;
-  min-height: 70vh;
+  // min-height: 70vh;
   background-color: #16192A;
+
+  height: 800px;
+  max-height: 80vh;
 
   .payment-modal-tabs {
     text-transform: uppercase;

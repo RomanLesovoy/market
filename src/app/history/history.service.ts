@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Subject } from 'rxjs';
+import { Subject, map, lastValueFrom, from, toArray } from 'rxjs';
 import { GET_HISTORY } from './gql-operations';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable() // explain: without providedIn: 'root' - we have to register it in providers
 export class HistoryService {
   public history: Subject<Array<any>> = new Subject(); // todo
 
@@ -23,8 +21,16 @@ export class HistoryService {
 
     this.apollo.watchQuery({
       query: GET_HISTORY,
-    }).valueChanges.subscribe(({data, error}: any) => {
-      this.history.next(data.account_transactions.map(prepareHistory));
+    }).valueChanges.subscribe(async ({data, error}: any) => {
+      this.history.next( // explain
+        await lastValueFrom( // return promise from observable
+          from(data.account_transactions) // creates observable from
+            .pipe( // pass observable into pipe of functions
+              map(prepareHistory), // iterate each value
+              toArray()
+            )
+        )
+      );
     });
   }
 }

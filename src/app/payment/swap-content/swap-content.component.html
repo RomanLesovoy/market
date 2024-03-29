@@ -1,2 +1,32 @@
-<app-currency-selector [onChangeCurrency]="changeBaseCurrency" [excludeCurrency]="quoteCurrency"></app-currency-selector>
-<app-currency-selector [onChangeCurrency]="changeQuoteCurrency" [excludeCurrency]="baseCurrency"></app-currency-selector>
+<section class="swap-content">
+  <app-currency-selector [onChangeCurrency]="changeBaseCurrency" [excludeCurrency]="quoteCurrency" [label]="'Base currency'"></app-currency-selector>
+
+  <mat-form-field class="">
+    <mat-label>{{ baseCurrency || 'Base ' }} Amount</mat-label>
+    <input matInput type="number" min="0" [value]="amountBase" (input)="changeAmountBase($event.target)">
+  </mat-form-field>
+
+  <app-currency-selector [onChangeCurrency]="changeQuoteCurrency" [excludeCurrency]="baseCurrency" [label]="'Quote currency'"></app-currency-selector>
+
+  <mat-form-field class="">
+    <mat-label>{{ quoteCurrency || 'Quote ' }} Amount</mat-label>
+    <input matInput type="number" min="0" [value]="amountQuote" (input)="changeAmountQuote($event.target)">
+  </mat-form-field>
+
+  <div class="flex-center loader-deposit" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="conversionQuote">
+    <p class="list-conversion-info">
+      <span>Price:</span><span>{{ conversionQuote.price }}</span>
+      <span>Fee:</span><span>{{ conversionQuote.fee_currency_id + ': ' }}{{ conversionQuote.fee_currency_amount }}</span>
+    </p>
+  </ng-container>
+
+  <mat-dialog-actions>
+    <button *ngIf="!conversionQuote" [disabled]="!canCreateConversionQuote" (click)="createConversionQuote()" mat-raised-button color="primary">Create quote</button>
+  
+    <button *ngIf="conversionQuote" (click)="null" mat-raised-button color="primary" (click)="createConversion()">Convert</button>
+  </mat-dialog-actions>
+</section>

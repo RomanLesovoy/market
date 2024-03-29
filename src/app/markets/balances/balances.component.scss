@@ -1,0 +1,22 @@
+
+section.balances {
+  height: 100%;
+  background-color: #16192A;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
+  .balance-row {
+    margin: 0 10px 10px;
+    padding: 10px;
+    background: #3f43483b;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: 22px;
+      color: white;
+    }
+  }
+}

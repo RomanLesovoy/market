@@ -11,7 +11,31 @@ body {
 .main {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: 100px 0 1fr;
+  grid-gap: 0px;
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 1fr 300px;
+  overflow: hidden;
+  grid-template-areas:
+    'header header'
+    'content balances'
+    'content balances';
+
+  &.no-auth {
+    grid-template-columns: 1fr;
+  }
+
+  router-outlet {
+    display: none;
+  }
+
+  app-header {
+    grid-area: header;
+  }
+
+  app-balances {
+    grid-area: balances;
+    margin-top: -5px;
+  }
 }
 
 .no-content {
@@ -46,7 +70,7 @@ a {
     font-size: 14px;
   }
   
-  mat-label, .mat-mdc-select-arrow-wrapper svg {
+  mat-label, .mat-mdc-select-arrow-wrapper svg, .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
     color: white;
   }
   

@@ -11,7 +11,20 @@
     </mat-select>
   </mat-form-field>
 
+  <div class="flex-center loader-deposit" *ngIf="isLoading else loaded">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-template #loaded>
+    <qrcode colorLight="#16192A" colorDark="#fff" *ngIf="!!deposit else emptyQr" [qrdata]="deposit.address" [width]="qrHeight" [errorCorrectionLevel]="'M'"></qrcode>
+    <ng-template #emptyQr>
+      <div class="shadow-qr">
+        <qrcode [qrdata]="''" colorLight="#16192A" colorDark="#fff" [width]="qrHeight" [allowEmptyString]="true"></qrcode>
+      </div>
+    </ng-template>
+  </ng-template>
+
   <mat-dialog-actions>
-    <button [disabled]="!selectedPaymentRouteId" (click)="createDeposit()" mat-raised-button color="primary">Generate</button>
+    <button [disabled]="!selectedPaymentRouteId" (click)="createDeposit()" mat-raised-button color="primary">Generate deposit</button>
   </mat-dialog-actions>
 </section>

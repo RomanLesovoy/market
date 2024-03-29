@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { importProvidersFrom } from '@angular/core';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,23 +19,29 @@ import { HistoryComponent } from './history/history.component';
 import { HeaderComponent } from './header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MarketsModule } from './markets/markets.module';
-import { FilterPipe } from './shared/pipes/filter-pipe.pipe';
+import { BalancesComponent } from './markets/balances/balances.component';
+import { HistoryService } from './history/history.service';
+import { PaymentModule } from './payment/payment.module';
+import { PaymentService } from './payment/payment.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HistoryComponent,
+    BalancesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    PaymentModule,
     ApolloModule,
     MarketsModule,
-    HeaderComponent,
-    FilterPipe,
+    QRCodeModule,
+    ToastrModule.forRoot(),
+    HeaderComponent, // explain: why here component
     ShareLibModulesModule, // explain: we can use modules to import\export
   ],
-  providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync()],
+  providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync(), HistoryService, PaymentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

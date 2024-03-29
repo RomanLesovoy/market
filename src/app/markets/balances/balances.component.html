@@ -1,0 +1,21 @@
+<section class="balances" *ngIf="!!isAuth">
+
+  <div class="flex-center" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <ng-container *ngIf="!isLoading && balances.length">
+    <section class="balance-row"  *ngFor="let balance of balances; trackBy: balanceTrackBy">
+      <span>
+        {{ balance.currency_id + ' ' }}
+      </span>
+      <span>
+        {{ balance.free_balance }}
+      </span>
+    </section>
+  </ng-container>
+  
+  <ng-container *ngIf="!isLoading && !balances.length">
+    <section class="balance-row"><span>No Balances</span></section>
+  </ng-container>
+</section>

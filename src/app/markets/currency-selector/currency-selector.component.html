@@ -1,7 +1,7 @@
 <section class="currency-selector">
 
   <mat-form-field >
-    <mat-label>Select currency</mat-label>
+    <mat-label>{{ label }}</mat-label>
     <mat-select [(value)]="selectedCurrency" (selectionChange)="changeCurrency($event.value)">
       <mat-option>None</mat-option>
    
