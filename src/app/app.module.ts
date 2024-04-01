@@ -23,6 +23,7 @@ import { BalancesComponent } from './markets/balances/balances.component';
 import { HistoryService } from './history/history.service';
 import { PaymentModule } from './payment/payment.module';
 import { PaymentService } from './payment/payment.service';
+import { DirectivesModule } from './shared/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PaymentService } from './payment/payment.service';
     ToastrModule.forRoot(),
     HeaderComponent, // explain: why here component
     ShareLibModulesModule, // explain: we can use modules to import\export
+    DirectivesModule
   ],
   providers: [importProvidersFrom(HttpClientModule), Apollo, ApolloProvider, CognitoService, provideAnimationsAsync(), HistoryService, PaymentService],
   bootstrap: [AppComponent]

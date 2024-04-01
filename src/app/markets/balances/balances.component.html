@@ -5,11 +5,11 @@
   </div>
 
   <ng-container *ngIf="!isLoading && balances.length">
-    <section class="balance-row"  *ngFor="let balance of balances; trackBy: balanceTrackBy">
-      <span>
+    <section class="balance-row" *ngFor="let balance of balances; trackBy: balanceTrackBy">
+      <span colorHover>
         {{ balance.currency_id + ' ' }}
       </span>
-      <span>
+      <span colorHover>
         {{ balance.free_balance }}
       </span>
     </section>
